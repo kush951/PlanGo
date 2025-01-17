@@ -9,8 +9,7 @@ function App() {
 
   return (
     <>
-      <h2>PlanGo</h2>
-      <Button> Subscribe </Button>
+      {/* Hero */}
     </>
   )
 }

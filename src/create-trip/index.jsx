@@ -8,4 +8,4 @@ function CreateTrip() {
     )
 }
 
-export default index
+export default CreateTrip;
