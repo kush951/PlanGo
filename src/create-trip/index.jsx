@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Input } from "@/components/ui/input"
 
 function CreateTrip() {
     const [query, setQuery] = useState(""); // Holds the input value
@@ -34,9 +35,9 @@ function CreateTrip() {
                 customized itinerary.
             </p>
 
-            <div className="mt-20">
+            <div className="mt-20 " >
                 <h2 className="text-xl my-3 font-medium">Destination?</h2>
-                <div className="relative">
+                <div >
                     {/* Input field for searching places */}
                     <input
                         type="text"
@@ -62,6 +63,14 @@ function CreateTrip() {
                     )}
                 </div>
             </div>
+            <br />
+            <div>
+                <h2 className="text-xl my-3 font-medium">How many days are you planning to stay?</h2>
+                <Input placeholder={'Ex.3'} type="number" />
+            </div>
+
+
+
         </div>
     );
 }
