@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { SelectTravelesList, SelectBudgetOptions } from "../constants/options";
 import { Button } from '@/components/ui/button';
+import { toast } from "sonner"
+
 
 function CreateTrip() {
     const [query, setQuery] = useState(""); // Holds the input value for search
@@ -55,8 +57,8 @@ function CreateTrip() {
 
     const OnGenerateTrip = () => {
         // Ensure that formData.noOfDays exists and is valid
-        if (!formData?.noOfDays || formData.noOfDays > 5) {
-            console.log("No valid number of days or more than 5 days selected");
+        if (!formData?.noOfDays || formData.noOfDays > 5 && !formData?.destination || !formData?.budget || !formData.traveler) {
+            toast("Please fill all details")
             return;
         }
 
