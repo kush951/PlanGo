@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import { SelectTravelesList, SelectBudgetOptions } from "../constants/options";
+import { SelectTravelesList, SelectBudgetOptions, AI_PROMPT } from "../constants/options";
 import { Button } from '@/components/ui/button';
-import { toast } from "sonner"
-
+import { toast } from "sonner";
+import { chatSession } from "@/service/AiModel";
 
 function CreateTrip() {
     const [query, setQuery] = useState(""); // Holds the input value for search
@@ -43,31 +43,39 @@ function CreateTrip() {
     const [formData, setFormData] = useState({});
 
     const handleInputChange = (name, value) => {
-
         setFormData({
             ...formData,
             [name]: value
-        })
-    }
+        });
+    };
 
     useEffect(() => {
         console.log(formData);
     }, [formData]);
 
+    const OnGenerateTrip = async () => {
+        // Ensure that formData.noOfDays exists and is a valid number
+        const days = parseInt(formData?.noOfDays, 10);
 
-    const OnGenerateTrip = () => {
-        // Ensure that formData.noOfDays exists and is valid
-        if (!formData?.noOfDays || formData.noOfDays > 5 && !formData?.destination || !formData?.budget || !formData.traveler) {
-            toast("Please fill all details")
+        // Validate form data
+        if (!days || days > 5 || !formData?.destination || !formData?.budget || !formData?.traveler) {
+            toast("Please fill all details");
             return;
         }
 
-        console.log("Generating trip with the following details:", formData);
-    }
+        const FINAL_PROMPT = AI_PROMPT
+            .replace('{destination}', formData?.destination)
+            .replace('{totalDays}', days)  // Ensure no string manipulation error occurs here
+            .replace('{traveler}', formData?.traveler)
+            .replace('{budget}', formData?.budget);
 
+        console.log(FINAL_PROMPT);
+        // Generate the trip based on the details
+        // Additional logic to handle trip generation goes here
+        const result = await chatSession.sendMessage(FINAL_PROMPT);
+        console.log(result?.response?.text());
 
-
-
+    };
 
     return (
         <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
