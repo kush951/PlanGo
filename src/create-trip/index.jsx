@@ -104,7 +104,7 @@ function CreateTrip() {
             toast.error("Failed to save the trip. Please try again.");
         } finally {
             setLoading(false);
-            navigate('view-trip' + docId);
+            navigate('/view-trip' + docId);
         }
     };
 
