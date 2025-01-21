@@ -7,7 +7,6 @@ function InfoSection({ trip }) {
         <div>
             <img src="/placeholder.webp" className='h-[340px] w-full object-cover rounded-xl' />
             <div className='flex justify-between items-center'>
-
                 <div className='my-5 flex flex-col gap-2'>
                     <h2 className='font-bold text-2xl'>{trip?.userSelection?.destination}</h2>
                     <div className='flex gap-5'>
