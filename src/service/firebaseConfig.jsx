@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore"; // Correct import for Firesto
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCk70tO11uSJOLoUkkZY4noRFXyvnjU7kQ",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "plango-project.firebaseapp.com",
     projectId: "plango-project",
     storageBucket: "plango-project.firebaseapp.com",
