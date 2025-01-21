@@ -18,6 +18,7 @@ import axios from "axios";
 import { doc, setDoc } from "firebase/firestore";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { db } from '@/service/firebaseConfig';
+import { useNavigate } from "react-router-dom";
 
 function CreateTrip() {
     const [query, setQuery] = useState(""); // Holds the input value for search
@@ -103,6 +104,7 @@ function CreateTrip() {
             toast.error("Failed to save the trip. Please try again.");
         } finally {
             setLoading(false);
+            navigate('view-trip' + docId);
         }
     };
 
@@ -163,6 +165,7 @@ function CreateTrip() {
         toast("You have been signed out.");
     };
 
+    const navigate = useNavigate();
     return (
         <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
             <h2 className="font-bold text-3xl">Tell us your travel preferences 🏕️🌴</h2>
