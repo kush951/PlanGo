@@ -85,10 +85,11 @@ function CreateTrip() {
     });
 
     const SaveAiTrip = async (TripData) => {
+        let docId = null; // Ensure docId is defined outside the try block
         try {
             setLoading(true);
             const user = JSON.parse(localStorage.getItem("user"));
-            const docId = Date.now().toString();
+            docId = Date.now().toString(); // Assign a unique ID
 
             // Save to Firestore
             await setDoc(doc(db, "AITrips", docId), {
@@ -99,12 +100,15 @@ function CreateTrip() {
             });
 
             console.log("Trip saved successfully!");
+            toast.success("Trip saved successfully!");
         } catch (error) {
             console.error("Error saving trip:", error);
             toast.error("Failed to save the trip. Please try again.");
         } finally {
             setLoading(false);
-            navigate('/view-trip' + docId);
+            if (docId) {
+                navigate(`/view-trip/${docId}`); // Navigate only if docId was successfully defined
+            }
         }
     };
 
