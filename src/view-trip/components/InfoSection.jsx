@@ -1,8 +1,27 @@
 import { Button } from '@/components/ui/button';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IoIosSend } from "react-icons/io";
+import axios from 'axios';
+import { GetPlaceDetails } from '@/service/GlobalApi';
 
 function InfoSection({ trip }) {
+
+    useEffect(() => {
+        trip && GetPlacePhoto();
+    }, [trip])
+
+    const GetPlacePhoto = async () => {
+        const data = {
+            textQuery: trip?.userSelection?.destination
+        }
+        const result = await GetPlaceDetails(data).then(resp => {
+
+            console.log(resp.data)
+        });
+    }
+
+
+
     return (
         <div>
             <img src="/placeholder.webp" className='h-[340px] w-full object-cover rounded-xl' />
