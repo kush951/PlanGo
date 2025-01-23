@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaMapMarkedAlt } from "react-icons/fa";
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function PlaceCardItem({ place, dayWisePlan }) {
+    const [photoUrl, setPhotoUrl] = useState('/placeholder.webp'); // Default placeholder image
+
+    useEffect(() => {
+        if (place?.placeName) {
+            fetchPlacePhoto(place.placeName);
+        }
+    }, [place]);
+
+    const fetchPlacePhoto = async (query) => {
+        const apiKey = '48383429-de6dbc4cac2cc84e9a00c58d3';
+        const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&image_type=photo`;
+
+        try {
+            const response = await axios.get(url);
+            if (response.data.hits.length > 0) {
+                setPhotoUrl(response.data.hits[0].webformatURL); // Use the first photo from results
+            }
+        } catch (error) {
+            console.error('Error fetching photo:', error);
+        }
+    };
+
     return (
         <Link to={'https://www.google.com/maps/search/?api=1&query=' + place?.placeName} target="_blank">
             <div className="mt-2 p-3 border rounded-xl flex gap-5 hover:scale-105 transition-all hover:shadow-md cursor-pointer">
-
-
-                <img src="/placeholder.webp"
-                    className='w-[130px] h-[130px] rounded-xl'
+                <img
+                    src={photoUrl}
+                    alt={place?.placeName}
+                    className="w-[130px] h-[130px] rounded-xl object-cover"
                 />
-                <ul className="pl-4 ">
+                <ul className="pl-4">
                     <li className="mt-1">
                         <strong>{place.placeName}</strong>
                         <p className="text-sm text-gray-500">
@@ -21,15 +43,8 @@ function PlaceCardItem({ place, dayWisePlan }) {
                         <p className="text-sm mt-2">
                             <strong>🕙 Time to Travel:</strong> {place.timeToTravel}
                         </p>
-                        {/* <Button size="sm"><FaMapMarkedAlt /></Button> */}
-                        {/* <p className="text-sm">
-                            <strong>Ticket Pricing:</strong> {place.ticketPricing}
-                        </p> */}
                     </li>
                 </ul>
-                {/* <p className="text-sm text-gray-600">
-                    <strong>Day Plan:</strong> {dayWisePlan}
-                </p> */}
             </div>
         </Link>
     );

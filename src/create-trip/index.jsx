@@ -158,8 +158,13 @@ function CreateTrip() {
                 console.log(resp);
                 localStorage.setItem("user", JSON.stringify(resp.data));
                 setUser(resp.data);
-                setOpenDialog(false);
-                OnGenerateTrip();
+                console.log("Closing dialog"); // Add this line
+                setOpenDialog(false); // Close the dialog
+                OnGenerateTrip(); // Continue with trip generation
+            })
+            .catch((error) => {
+                console.error("Error fetching user profile:", error);
+                toast.error("Failed to sign in. Please try again.");
             });
     };
 
@@ -167,6 +172,7 @@ function CreateTrip() {
         localStorage.removeItem("user");
         setUser(null);
         toast("You have been signed out.");
+
     };
 
     const navigate = useNavigate();
