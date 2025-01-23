@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; // Added useState import
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { db } from '@/service/firebaseConfig';
@@ -6,11 +6,11 @@ import { doc, getDoc } from 'firebase/firestore';
 import InfoSection from '../components/InfoSection';
 import Hotels from '../components/Hotels';
 import PlacesToVisit from '../components/PlacesToVisit';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
 
 function Viewtrip() {
     const { tripId } = useParams();
-    const [trip, setTrip] = useState([]); // Corrected the state variable name from 'tript' to 'trip'
+    const [trip, setTrip] = useState(null); // Set initial state to null
 
     const GetTripData = async () => {
         const docRef = doc(db, 'AITrips', tripId);
@@ -25,8 +25,14 @@ function Viewtrip() {
     };
 
     useEffect(() => {
-        tripId && GetTripData();
+        if (tripId) {
+            GetTripData();
+        }
     }, [tripId]);
+
+    if (!trip) {
+        return <p>Loading...</p>; // Show loading state while fetching data
+    }
 
     return (
         <div className='p-10 md:px-20 lg:px-44 xl:px-56'>

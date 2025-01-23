@@ -18,6 +18,7 @@ function PlaceCardItem({ place, dayWisePlan }) {
 
         try {
             const response = await axios.get(url);
+            console.log('API response:', response); // Log the response
             if (response.data.hits.length > 0) {
                 setPhotoUrl(response.data.hits[0].webformatURL); // Use the first photo from results
             }
@@ -41,7 +42,7 @@ function PlaceCardItem({ place, dayWisePlan }) {
                             {place.placeDetails}
                         </p>
                         <p className="text-sm mt-2">
-                            <strong>🕙 Time to Travel:</strong> {place.timeToTravel}
+                            <strong>🕙 Time to Travel:</strong> {place?.timeToTravel || 'N/A'}
                         </p>
                     </li>
                 </ul>
