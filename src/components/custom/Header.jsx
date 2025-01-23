@@ -55,7 +55,9 @@ function Header() {
 
     return (
         <div className="p-3 shadow-sm flex justify-between items-center px-5">
-            <img src="/logo.svg" alt="logo" />
+            <a href="/">
+                <img src="/logo.svg" alt="logo" />
+            </a>
 
             <div>
                 {user ? (

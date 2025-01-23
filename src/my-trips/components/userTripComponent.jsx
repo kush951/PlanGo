@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function UserTripComponent({ trip }) {
     const [photoUrl, setPhotoUrl] = useState('./placeholder.webp'); // Default placeholder image
@@ -24,21 +25,25 @@ function UserTripComponent({ trip }) {
         }
     };
 
+
     return (
-        <div>
-            <img
-                src={photoUrl}
-                alt={trip?.userSelection?.destination || 'Trip Destination'}
-                className="object-cover rounded-xl mt-4 h-65"
-            />
-            <br />
-            <div>
-                <h2 className="font-bold text-lg">{trip?.userSelection?.destination}</h2>
-                <h2 className="text-sm text-gray-500">
-                    {trip?.userSelection?.noOfDays} days trip with {trip?.userSelection?.budget} budget
-                </h2>
+        <Link to={'/view-trip/' + trip?.id}>
+            <div className='hover:scale-105 transition all '>
+
+                <img
+                    src={photoUrl}
+                    alt={trip?.userSelection?.destination || 'Trip Destination'}
+                    className="object-cover rounded-xl mt-4 w-full h-60"
+                />
+                <br />
+                <div>
+                    <h2 className="font-bold text-lg">{trip?.userSelection?.destination}</h2>
+                    <h2 className="text-sm text-gray-500">
+                        {trip?.userSelection?.noOfDays} days trip with {trip?.userSelection?.budget} budget
+                    </h2>
+                </div>
             </div>
-        </div>
+        </Link >
     );
 }
 
