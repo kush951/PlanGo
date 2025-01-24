@@ -241,12 +241,12 @@ function CreateTrip() {
             <br />
             <div>
                 <h2 className="text-xl my-3 font-medium">Who do you want to travel with?</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5 rounded-xl">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5 ">
                     {SelectTravelesList.map((item, index) => (
                         <div
                             key={index}
                             onClick={() => handleInputChange("traveler", item.title)}
-                            className={`p-4 cursor-pointer border rounded-lg${formData?.traveler === item.title && "shadow-lg border-black"
+                            className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg${formData?.traveler === item.title && "shadow-lg border-black"
                                 }`}
                         >
                             <h2 className="text-4xl">{item.icon}</h2>
