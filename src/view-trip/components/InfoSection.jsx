@@ -24,6 +24,16 @@ function InfoSection({ trip }) {
         }
     };
 
+    const shareOnWhatsApp = () => {
+        const message = `Check out this trip to ${trip?.userSelection?.destination}!
+        - Duration: ${trip?.userSelection?.noOfDays} days
+        - Budget: ${trip?.userSelection?.budget}
+        - Number of Travelers: ${trip?.userSelection?.traveler}`;
+
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    };
+
     return (
         <div>
             {photos.length > 0 ? (
@@ -40,7 +50,7 @@ function InfoSection({ trip }) {
                         <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-md'>🥂 No. of Traveller: {trip?.userSelection?.traveler} </h2>
                     </div>
                 </div>
-                <Button><IoIosSend /></Button>
+                <Button onClick={shareOnWhatsApp}><IoIosSend /></Button>
             </div>
         </div>
     );
