@@ -246,7 +246,7 @@ function CreateTrip() {
                         <div
                             key={index}
                             onClick={() => handleInputChange("traveler", item.title)}
-                            className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg${formData?.traveler === item.title && "shadow-lg border-black"
+                            className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg ${formData?.traveler === item.title && "shadow-lg border-black"
                                 }`}
                         >
                             <h2 className="text-4xl">{item.icon}</h2>
