@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '@/service/firebaseConfig';
+import { MdDelete } from "react-icons/md";
 
-function UserTripComponent({ trip }) {
+
+function UserTripComponent({ trip, onDelete }) {
     const [photoUrl, setPhotoUrl] = useState('./placeholder.webp'); // Default placeholder image
 
     useEffect(() => {
@@ -25,11 +29,18 @@ function UserTripComponent({ trip }) {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            await deleteDoc(doc(db, 'AITrips', trip.id));
+            onDelete(trip.id);
+        } catch (error) {
+            console.error('Error deleting trip:', error);
+        }
+    };
 
     return (
-        <Link to={'/view-trip/' + trip?.id}>
-            <div className='hover:scale-105 transition all '>
-
+        <div className='hover:scale-105 transition all'>
+            <Link to={'/view-trip/' + trip?.id}>
                 <img
                     src={photoUrl}
                     alt={trip?.userSelection?.destination || 'Trip Destination'}
@@ -42,8 +53,13 @@ function UserTripComponent({ trip }) {
                         {trip?.userSelection?.noOfDays} days trip with {trip?.userSelection?.budget} budget
                     </h2>
                 </div>
-            </div>
-        </Link >
+            </Link>
+            <button onClick={handleDelete} className="mt-2 bg-red-400 text-white py-1 px-3 rounded">
+                <MdDelete />
+            </button>
+
+        </div>
+
     );
 }
 
