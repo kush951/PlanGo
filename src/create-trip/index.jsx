@@ -19,6 +19,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { db } from '@/service/firebaseConfig';
 import { useNavigate } from "react-router-dom";
+import Footer from '@/view-trip/components/Footer';
 
 function CreateTrip() {
     const [query, setQuery] = useState(""); // Holds the input value for search
@@ -288,6 +289,8 @@ function CreateTrip() {
                     </div>
                 </DialogContent>
             </Dialog>
+
+            <Footer />
         </div>
     );
 }
