@@ -5,13 +5,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 
 function Header() {
     const [user, setUser] = useState(null);
-
-
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -50,33 +46,51 @@ function Header() {
         setUser(null);
         toast('You have been signed out.');
         window.location.reload();
-
     };
 
     return (
-        <div className="p-3 shadow-sm flex justify-between items-center px-5">
-            <a href="/">
-                <img src="/logo.svg" alt="logo" />
+        <div className="p-3 shadow-sm flex flex-wrap justify-between items-center px-4 md:px-5">
+            <a href="/" className="flex-shrink-0">
+                <img src="/logo.svg" alt="logo" className="h-8 md:h-10" />
             </a>
 
-            <div>
+            <div className="mt-2 md:mt-0 flex flex-wrap items-center gap-2 md:gap-4">
                 {user ? (
-                    <div className="flex items-center gap-4">
-                        <span className="font-medium">Hi, {user.name}</span>
-                        <Button variant="outline" onClick={handleSignOut}>
+                    <div className="flex flex-wrap items-center gap-2 md:gap-4">
+                        <span className="text-sm md:text-base font-medium">
+                            Hi, {user.name}
+                        </span>
+                        <Button
+                            variant="outline"
+                            onClick={handleSignOut}
+                            className="text-xs md:text-sm"
+                        >
                             Sign Out
                         </Button>
-
-                        <a href="/my-trips">
-                            <Button variant="outline" className="rounded-full">
-                                My Trip
+                        <a href="/create-trip">
+                            <Button
+                                variant="outline"
+                                className="text-xs md:text-sm rounded-full"
+                            >
+                                + Create Trip
                             </Button>
                         </a>
-
+                        <a href="/my-trips">
+                            <Button
+                                variant="outline"
+                                className="text-xs md:text-sm rounded-full"
+                            >
+                                My Trips
+                            </Button>
+                        </a>
                     </div>
                 ) : (
-                    <Button variant="outline" onClick={() => login()}>
-                        <FcGoogle className="h-5 w-5 mr-2" />
+                    <Button
+                        variant="outline"
+                        onClick={() => login()}
+                        className="flex items-center text-xs md:text-sm"
+                    >
+                        <FcGoogle className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                         Sign In
                     </Button>
                 )}
