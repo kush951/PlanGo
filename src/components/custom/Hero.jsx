@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
+import Footer from '@/view-trip/components/Footer';
 
 function Hero() {
     return (
@@ -22,6 +23,7 @@ function Hero() {
                 alt="landing img"
                 className="mt-6 sm:mt-8 w-full h-auto object-cover max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl"
             />
+            <Footer />
         </div>
     );
 }
